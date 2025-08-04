@@ -2764,9 +2764,7 @@ Use "--disable-static --enable-shared" to build just a DLL.])
     # __isascii, but for some reason not the plain isascii.
     #
     if test "$enable_shared" = yes; then
-      GMP_LDFLAGS="$GMP_LDFLAGS -no-undefined -Wl,--export-all-symbols"
-      LIBGMP_LDFLAGS="$LIBGMP_LDFLAGS -Wl,--output-def,.libs/libgmp-3.dll.def"
-      LIBGMPXX_LDFLAGS="$LIBGMP_LDFLAGS -Wl,--output-def,.libs/libgmpxx-3.dll.def"
+      GMP_LDFLAGS="$GMP_LDFLAGS -no-undefined"
       LIBGMP_DLL=1
     fi
     ;;
@@ -3769,6 +3767,8 @@ if test "$gmp_asm_syntax_testing" != no; then
 	  case $host in
 	    *-*-darwin*)
 	      GMP_INCLUDE_MPN(arm64/darwin.m4) ;;
+	    *-pc-mingw32)
+	      GMP_INCLUDE_MPN(arm64/coff.m4) ;;
 	    *)
 	      GMP_INCLUDE_MPN(arm64/arm64-defs.m4) ;;
           esac
